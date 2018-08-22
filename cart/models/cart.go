@@ -44,8 +44,3 @@ type CartModelView struct {
 func (modal *CartModelView) TableName() string {
 	return "ProjectorCartView"
 }
-
-func (modal *CartModelView) BeforeCreate(scope *gorm.Scope) error {
-	scope.SetColumn("ID", uuid.NewV4())
-	return nil
-}
