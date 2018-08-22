@@ -5,7 +5,7 @@ services:
       context: ../../logic
       target: final
       args:
-        GO_PROJECT_PATH: github.com/sysco-middleware/commander-boilerplate/logic
+        GO_PROJECT_PATH: github.com/jeroenrinzema/commander-sock-store-example/cart/logic
     environment:
       KAFKA_BROKERS: kafka:9092
       KAFKA_GROUP: cart-users
@@ -24,7 +24,7 @@ services:
       context: ../../projector
       target: final
       args:
-        GO_PROJECT_PATH: github.com/sysco-middleware/commander-boilerplate/projector
+        GO_PROJECT_PATH: github.com/jeroenrinzema/commander-sock-store-example/cart/projector
     environment:
       KAFKA_BROKERS: kafka:9092
       KAFKA_GROUP: projector
@@ -42,7 +42,7 @@ services:
       context: ../../query
       target: final
       args:
-        GO_PROJECT_PATH: github.com/sysco-middleware/commander-boilerplate/query
+        GO_PROJECT_PATH: github.com/jeroenrinzema/commander-sock-store-example/cart/query
     ports:
       - 6070:8080
     environment:
