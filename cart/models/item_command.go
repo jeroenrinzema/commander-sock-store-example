@@ -4,5 +4,5 @@ import uuid "github.com/satori/go.uuid"
 
 // ItemCommandModel holds the info about a item
 type ItemCommandModel struct {
-	ID *uuid.UUID `json:"id"`
+	ID uuid.UUID `json:"id"`
 }
