@@ -3,6 +3,7 @@ package models
 import (
 	"time"
 
+	"github.com/lib/pq"
 	uuid "github.com/satori/go.uuid"
 )
 
@@ -10,7 +11,7 @@ import (
 type CartModel struct {
 	ID          uuid.UUID `gorm:"type:uuid; primary_key"`
 	User        uuid.UUID
-	Items       []int64
+	Items       pq.Int64Array `gorm:"type:integer[]"`
 	Purchased   bool
 	PurchasedAt time.Time
 	CreatedAt   time.Time
