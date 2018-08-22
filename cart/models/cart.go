@@ -34,7 +34,7 @@ func (modal *CartModel) BeforeCreate(scope *gorm.Scope) error {
 type CartModelView struct {
 	ID          uuid.UUID `gorm:"type:uuid; primary_key"`
 	User        uuid.UUID
-	Items       []uuid.UUID
+	Items       pq.Int64Array `gorm:"type:integer[]"`
 	Purchased   bool
 	PurchasedAt time.Time
 	CreatedAt   time.Time
