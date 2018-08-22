@@ -13,10 +13,12 @@ func main() {
 
 	database.AutoMigrate(&models.CartModel{})
 
-	commander.NewCommandHandle("ItemAdded", controllers.OnItemAdded)
-	commander.NewCommandHandle("ItemRemoved", controllers.OnItemRemoved)
+	commander.NewCommandHandle("CreateCart", controllers.OnCartCreated)
 	commander.NewCommandHandle("CartPurchased", controllers.OnCartPurchased)
 	commander.NewCommandHandle("CartDeclined", controllers.OnCartDeclined)
+
+	commander.NewCommandHandle("ItemAdded", controllers.OnItemAdded)
+	commander.NewCommandHandle("ItemRemoved", controllers.OnItemRemoved)
 
 	go commander.Consume()
 	commander.CloseOnSIGTERM()
