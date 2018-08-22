@@ -8,8 +8,8 @@ import (
 	"github.com/sysco-middleware/commander"
 )
 
-// OnItemAdded adds the given item to the cart
-func OnItemAdded(command *commander.Command) *commander.Event {
+// OnAddItem adds the given item to the cart
+func OnAddItem(command *commander.Command) *commander.Event {
 	cart := models.CartModel{}
 	req := models.ItemCommandModel{}
 	err := json.Unmarshal(command.Data, &req)
@@ -35,8 +35,8 @@ func OnItemAdded(command *commander.Command) *commander.Event {
 	return command.NewEvent("ItemAdded", 1, cart.ID, res)
 }
 
-// OnItemRemoved removes the given item from the cart
-func OnItemRemoved(command *commander.Command) *commander.Event {
+// OnRemoveItem removes the given item from the cart
+func OnRemoveItem(command *commander.Command) *commander.Event {
 	cart := models.CartModel{}
 	req := models.ItemCommandModel{}
 	err := json.Unmarshal(command.Data, &req)

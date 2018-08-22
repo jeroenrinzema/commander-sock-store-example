@@ -17,8 +17,8 @@ func main() {
 	commander.NewCommandHandle("CartPurchased", controllers.OnCartPurchased)
 	commander.NewCommandHandle("CartDeclined", controllers.OnCartDeclined)
 
-	commander.NewCommandHandle("ItemAdded", controllers.OnItemAdded)
-	commander.NewCommandHandle("ItemRemoved", controllers.OnItemRemoved)
+	commander.NewCommandHandle("AddItem", controllers.OnAddItem)
+	commander.NewCommandHandle("RemoveItem", controllers.OnRemoveItem)
 
 	go commander.Consume()
 	commander.CloseOnSIGTERM()
