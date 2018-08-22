@@ -53,7 +53,7 @@ func OnItemRemoved(command *commander.Command) *commander.Event {
 
 	// Remove item from cart
 	for index, item := range cart.Items {
-		if item.String() == req.ID.String() {
+		if item == req.ID {
 			cart.Items = append(cart.Items[:index], cart.Items[index+1:]...)
 		}
 	}

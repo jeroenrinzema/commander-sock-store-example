@@ -47,7 +47,7 @@
   branch = "master"
   name = "github.com/jeroenrinzema/commander-sock-store-example"
   packages = ["cart/models"]
-  revision = "c2eda9778d70adcbf8163955573df5c11d78f8a9"
+  revision = "39ade671b12a3f0d9917d6a0cdae9b615625ffa7"
 
 [[projects]]
   name = "github.com/jinzhu/gorm"
@@ -104,6 +104,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "f8c9e7e4eaa5aaf710585d38eb9547af58b64d33748a9b479b2483d3ae6131c8"
+  inputs-digest = "243baa27927cbc053355eb195b1c388005344598510dac55ab51981afd13cb7e"
   solver-name = "gps-cdcl"
   solver-version = 1
