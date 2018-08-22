@@ -18,12 +18,14 @@ func OnCartDeclined(command *commander.Command) *commander.Event {
 		return command.NewErrorEvent("DataParseError", nil)
 	}
 
+	cart.ID = req.ID
+
 	// Find the cart based on the given cart ID
-	findQuery := common.Database.First(&cart, req.ID.String())
+	findQuery := common.Database.First(&cart)
 	if findQuery.Error != nil {
 		return command.NewErrorEvent("CartNotFound", nil)
 	}
 
 	common.Database.Delete(&cart)
-	return command.NewEvent("CartDeclined", 1, cart.ID, nil)
+	return command.NewEvent("CartDeclined", 1, *cart.ID, nil)
 }

@@ -19,8 +19,10 @@ func OnCartPurchased(command *commander.Command) *commander.Event {
 		return command.NewErrorEvent("DataParseError", nil)
 	}
 
+	cart.ID = req.ID
+
 	// Find the cart based on the given cart ID
-	findQuery := common.Database.First(&cart, req.ID.String())
+	findQuery := common.Database.First(&cart)
 	if findQuery.Error != nil {
 		return command.NewErrorEvent("CartNotFound", nil)
 	}
@@ -34,5 +36,5 @@ func OnCartPurchased(command *commander.Command) *commander.Event {
 	}
 
 	res, _ := json.Marshal(cart)
-	return command.NewEvent("CartPurchased", 1, cart.ID, res)
+	return command.NewEvent("CartPurchased", 1, *cart.ID, res)
 }

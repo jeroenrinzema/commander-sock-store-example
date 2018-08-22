@@ -26,5 +26,5 @@ func OnCartCreated(command *commander.Command) *commander.Event {
 	}
 
 	res, _ := json.Marshal(cart)
-	return command.NewEvent("CartCreated", 1, cart.ID, res)
+	return command.NewEvent("CartCreated", 1, *cart.ID, res)
 }

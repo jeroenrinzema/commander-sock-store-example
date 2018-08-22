@@ -18,13 +18,15 @@ func OnAddItem(command *commander.Command) *commander.Event {
 		return command.NewErrorEvent("DataParseError", nil)
 	}
 
+	cart.ID = req.ID
+
 	// Find the cart based on the given cart ID
-	findQuery := common.Database.First(&cart, req.ID)
+	findQuery := common.Database.First(&cart)
 	if findQuery.Error != nil {
 		return command.NewErrorEvent("CartNotFound", nil)
 	}
 
-	cart.Items = append(cart.Items, req.ID)
+	cart.Items = append(cart.Items, req.Item)
 
 	saveQuery := common.Database.Save(&cart)
 	if saveQuery.Error != nil {
@@ -32,7 +34,7 @@ func OnAddItem(command *commander.Command) *commander.Event {
 	}
 
 	res, _ := json.Marshal(req)
-	return command.NewEvent("ItemAdded", 1, cart.ID, res)
+	return command.NewEvent("ItemAdded", 1, *cart.ID, res)
 }
 
 // OnRemoveItem removes the given item from the cart
@@ -45,15 +47,17 @@ func OnRemoveItem(command *commander.Command) *commander.Event {
 		return command.NewErrorEvent("DataParseError", nil)
 	}
 
+	cart.ID = req.ID
+
 	// Find the cart based on the given cart ID
-	findQuery := common.Database.First(&cart, req.ID)
+	findQuery := common.Database.First(&cart)
 	if findQuery.Error != nil {
 		return command.NewErrorEvent("CartNotFound", nil)
 	}
 
 	// Remove item from cart
 	for index, item := range cart.Items {
-		if item == req.ID {
+		if item == req.Item {
 			cart.Items = append(cart.Items[:index], cart.Items[index+1:]...)
 		}
 	}
@@ -64,5 +68,5 @@ func OnRemoveItem(command *commander.Command) *commander.Event {
 	}
 
 	res, _ := json.Marshal(req)
-	return command.NewEvent("ItemRemoved", 1, cart.ID, res)
+	return command.NewEvent("ItemRemoved", 1, *cart.ID, res)
 }
