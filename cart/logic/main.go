@@ -11,7 +11,7 @@ func main() {
 	database := common.OpenDatabase()
 	commander := common.OpenCommander()
 
-	database.AutoMigrate(&models.ItemModel{})
+	database.AutoMigrate(&models.CartModel{})
 
 	commander.NewCommandHandle("ItemAdded", controllers.OnItemAdded)
 	commander.NewCommandHandle("ItemRemoved", controllers.OnItemRemoved)
