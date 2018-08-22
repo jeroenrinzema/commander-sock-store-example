@@ -3,7 +3,7 @@ services:
   command:
     image: syscomiddleware/commander-command
     ports:
-      - 5050:8080
+      - 6040:8080
     environment:
       KAFKA_BROKERS: kafka:9092
       KAFKA_GROUP: activity-command
