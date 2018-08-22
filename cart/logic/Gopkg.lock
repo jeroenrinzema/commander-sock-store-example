@@ -47,7 +47,7 @@
   branch = "master"
   name = "github.com/jeroenrinzema/commander-sock-store-example"
   packages = ["cart/models"]
-  revision = "00f31cf562a0970c6ae247ed9b5228ccb640920a"
+  revision = "7d429f5986a896cf83b6a1517f3e5ca489c65348"
 
 [[projects]]
   name = "github.com/jinzhu/gorm"
