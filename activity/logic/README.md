@@ -26,6 +26,6 @@ export POSTGRES_PORT=5432
 export POSTGRES_USER=commander
 export POSTGRES_PASSWORD=TFgvT3Pb3bWEhXKAfgMk63bo
 export POSTGRES_DB=commander
-export COMMANDER_EVENT_TOPIC=cart-events
-export COMMANDER_COMMAND_TOPIC=cart-commands
+export COMMANDER_EVENT_TOPIC=activity-events
+export COMMANDER_COMMAND_TOPIC=activity-commands
 ```
