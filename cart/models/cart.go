@@ -3,6 +3,7 @@ package models
 import (
 	"time"
 
+	"github.com/jinzhu/gorm"
 	"github.com/lib/pq"
 	uuid "github.com/satori/go.uuid"
 )
@@ -24,8 +25,9 @@ func (modal *CartModel) TableName() string {
 }
 
 // BeforeCreate sets the cart uuid
-func (modal *CartModel) BeforeCreate() {
-	modal.ID = uuid.NewV4()
+func (modal *CartModel) BeforeCreate(scope *gorm.Scope) error {
+	scope.SetColumn("ID", uuid.NewV4())
+	return nil
 }
 
 // CartModelView holds the information about a cart
@@ -45,6 +47,7 @@ func (modal *CartModelView) TableName() string {
 }
 
 // BeforeCreate sets the cart uuid
-func (modal *CartModelView) BeforeCreate() {
-	modal.ID = uuid.NewV4()
+func (modal *CartModelView) BeforeCreate(scope *gorm.Scope) error {
+	scope.SetColumn("ID", uuid.NewV4())
+	return nil
 }
