@@ -10,7 +10,7 @@ import (
 type CartModel struct {
 	ID          uuid.UUID `gorm:"type:uuid; primary_key"`
 	User        uuid.UUID
-	Items       []int
+	Items       []int64
 	Purchased   bool
 	PurchasedAt time.Time
 	CreatedAt   time.Time
