@@ -10,7 +10,7 @@ import (
 type CartModel struct {
 	ID          *uuid.UUID `gorm:"type:uuid; primary_key"`
 	User        *uuid.UUID
-	Items       []ItemModel
+	Items       []*uuid.UUID
 	Purchased   bool
 	PurchasedAt time.Time
 	CreatedAt   time.Time
@@ -26,7 +26,7 @@ func (modal *CartModel) TableName() string {
 type CartModelView struct {
 	ID          *uuid.UUID `gorm:"type:uuid; primary_key"`
 	User        *uuid.UUID
-	Items       []ItemModel
+	Items       []*uuid.UUID
 	Purchased   bool
 	PurchasedAt time.Time
 	CreatedAt   time.Time
