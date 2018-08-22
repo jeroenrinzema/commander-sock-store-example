@@ -1,0 +1,19 @@
+version: '3.4'
+services:
+  logic:
+    build:
+      context: ../../logic
+      target: final
+      args:
+        GO_PROJECT_PATH: github.com/jeroenrinzema/commander-sock-store-example/activity/logic
+    environment:
+      KAFKA_BROKERS: kafka:9092
+      KAFKA_GROUP: activity-users
+      COMMANDER_EVENT_TOPIC: activity-events
+      COMMANDER_COMMAND_TOPIC: activity-commands
+    networks:
+      - kafka
+networks:
+  kafka:
+    external:
+      name: kafka
