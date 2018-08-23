@@ -24,6 +24,7 @@ func (modal *CartModel) TableName() string {
 	return "ServiceCartView"
 }
 
+// BeforeCreate sets required fields before creating
 func (modal *CartModel) BeforeCreate(scope *gorm.Scope) error {
 	scope.SetColumn("ID", uuid.NewV4())
 	return nil
