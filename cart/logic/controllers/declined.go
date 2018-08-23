@@ -10,7 +10,6 @@ import (
 
 // OnCartDeclined mark a cart as declined
 func OnCartDeclined(command *commander.Command) *commander.Event {
-	cart := models.CartModel{}
 	req := models.CommandDeclinedModel{}
 	err := json.Unmarshal(command.Data, &req)
 
@@ -18,7 +17,9 @@ func OnCartDeclined(command *commander.Command) *commander.Event {
 		return command.NewErrorEvent("DataParseError", nil)
 	}
 
-	cart.ID = req.ID
+	cart := models.CartModel{
+		ID: req.ID,
+	}
 
 	// Find the cart based on the given cart ID
 	query := common.Database.First(&cart)

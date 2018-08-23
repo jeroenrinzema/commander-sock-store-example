@@ -11,7 +11,6 @@ import (
 
 // OnCartPurchased mark the given cart as purchased
 func OnCartPurchased(command *commander.Command) *commander.Event {
-	cart := models.CartModel{}
 	req := models.CommandPurcaseModel{}
 	err := json.Unmarshal(command.Data, &req)
 
@@ -19,7 +18,9 @@ func OnCartPurchased(command *commander.Command) *commander.Event {
 		return command.NewErrorEvent("DataParseError", nil)
 	}
 
-	cart.ID = req.ID
+	cart := models.CartModel{
+		ID: req.ID,
+	}
 
 	// Find the cart based on the given cart ID
 	find := common.Database.First(&cart)

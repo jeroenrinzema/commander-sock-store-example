@@ -10,7 +10,6 @@ import (
 
 // OnCartCreated creates a new empty cart
 func OnCartCreated(command *commander.Command) *commander.Event {
-	cart := models.CartModel{}
 	req := models.CommandCreateModel{}
 	err := json.Unmarshal(command.Data, &req)
 
@@ -18,7 +17,9 @@ func OnCartCreated(command *commander.Command) *commander.Event {
 		return command.NewErrorEvent("DataParseError", nil)
 	}
 
-	cart.User = req.User
+	cart := models.CartModel{
+		User: req.User,
+	}
 
 	query := common.Database.Save(&cart)
 	if query.Error != nil {
