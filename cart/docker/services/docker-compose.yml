@@ -28,7 +28,8 @@ services:
     environment:
       KAFKA_BROKERS: kafka:9092
       KAFKA_GROUP: projector
-      COMMANDER_EVENT_TOPIC: events
+      COMMANDER_COMMAND_TOPIC: cart-commands
+      COMMANDER_EVENT_TOPIC: cart-events
       POSTGRES_HOST: postgres
       POSTGRES_PORT: 5432
       POSTGRES_USER: commander
