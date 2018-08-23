@@ -1,6 +1,10 @@
 package models
 
-import uuid "github.com/satori/go.uuid"
+import (
+	"time"
+
+	uuid "github.com/satori/go.uuid"
+)
 
 // EventCreatedModel holds the information about a cart
 type EventCreatedModel struct {
@@ -9,14 +13,10 @@ type EventCreatedModel struct {
 	Items []int64    `json:"items"`
 }
 
-// EventDeclinedModel holds the information about a cart
-type EventDeclinedModel struct {
-	ID *uuid.UUID `json:"id"`
-}
-
-// EventPurcaseModel holds the information about a cart
+// EventPurcaseModel holds the information about a purchase
 type EventPurcaseModel struct {
-	ID *uuid.UUID `json:"id"`
+	ID   *uuid.UUID `json:"id"`
+	Time time.Time  `json:"time"`
 }
 
 // EventItemModel holds the info about a item
