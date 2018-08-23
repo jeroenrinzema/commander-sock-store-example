@@ -3,7 +3,6 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
-	"time"
 
 	"github.com/jeroenrinzema/commander-sock-store-example/cart/models"
 	"github.com/jeroenrinzema/commander-sock-store-example/cart/projector/common"
@@ -12,14 +11,16 @@ import (
 
 // OnCartPurchased mark the given cart as purchased
 func OnCartPurchased(event *commander.Event) {
-	cart := models.CartModelView{}
-	req := models.CartModel{}
-	err := json.Unmarshal(event.Data, &cart)
+	req := models.EventPurchaseModel{}
+	err := json.Unmarshal(event.Data, &req)
+
 	if err != nil {
 		return
 	}
 
-	cart.ID = req.ID
+	cart := models.CartModelView{
+		ID: &event.Key,
+	}
 
 	query := common.Database.First(&cart)
 	if query.Error != nil {
@@ -28,7 +29,7 @@ func OnCartPurchased(event *commander.Event) {
 	}
 
 	cart.Purchased = true
-	cart.PurchasedAt = time.Now()
+	cart.PurchasedAt = req.Time
 
 	common.Database.Save(&cart)
 }

@@ -22,19 +22,24 @@ func OnCartPurchased(command *commander.Command) *commander.Event {
 	cart.ID = req.ID
 
 	// Find the cart based on the given cart ID
-	findQuery := common.Database.First(&cart)
-	if findQuery.Error != nil {
+	find := common.Database.First(&cart)
+	if find.Error != nil {
 		return command.NewErrorEvent("CartNotFound", nil)
 	}
 
 	cart.Purchased = true
 	cart.PurchasedAt = time.Now()
 
-	saveQuery := common.Database.Save(&cart)
-	if saveQuery.Error != nil {
+	save := common.Database.Save(&cart)
+	if save.Error != nil {
 		return command.NewErrorEvent("CartInvalid", nil)
 	}
 
-	res, _ := json.Marshal(cart)
+	event := models.EventPurchaseModel{
+		ID:   cart.ID,
+		Time: cart.PurchasedAt,
+	}
+
+	res, _ := json.Marshal(event)
 	return command.NewEvent("CartPurchased", 1, *cart.ID, res)
 }

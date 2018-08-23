@@ -20,11 +20,17 @@ func OnCartCreated(command *commander.Command) *commander.Event {
 
 	cart.User = req.User
 
-	saveQuery := common.Database.Save(&cart)
-	if saveQuery.Error != nil {
+	query := common.Database.Save(&cart)
+	if query.Error != nil {
 		return command.NewErrorEvent("CartInvalid", nil)
 	}
 
-	res, _ := json.Marshal(cart)
+	event := models.EventCreatedModel{
+		ID:    cart.ID,
+		User:  cart.User,
+		Items: cart.Items,
+	}
+
+	res, _ := json.Marshal(event)
 	return command.NewEvent("CartCreated", 1, *cart.ID, res)
 }

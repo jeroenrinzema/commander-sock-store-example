@@ -21,8 +21,8 @@ func OnCartDeclined(command *commander.Command) *commander.Event {
 	cart.ID = req.ID
 
 	// Find the cart based on the given cart ID
-	findQuery := common.Database.First(&cart)
-	if findQuery.Error != nil {
+	query := common.Database.First(&cart)
+	if query.Error != nil {
 		return command.NewErrorEvent("CartNotFound", nil)
 	}
 

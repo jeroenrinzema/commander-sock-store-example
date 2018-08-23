@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"github.com/jeroenrinzema/commander-sock-store-example/cart/logic/common"
 	"github.com/jeroenrinzema/commander-sock-store-example/cart/models"
@@ -15,25 +16,31 @@ func OnAddItem(command *commander.Command) *commander.Event {
 	err := json.Unmarshal(command.Data, &req)
 
 	if err != nil {
+		fmt.Println(err)
 		return command.NewErrorEvent("DataParseError", nil)
 	}
 
 	cart.ID = req.ID
 
 	// Find the cart based on the given cart ID
-	findQuery := common.Database.First(&cart)
-	if findQuery.Error != nil {
+	find := common.Database.First(&cart)
+	if find.Error != nil {
 		return command.NewErrorEvent("CartNotFound", nil)
 	}
 
 	cart.Items = append(cart.Items, req.Item)
 
-	saveQuery := common.Database.Save(&cart)
-	if saveQuery.Error != nil {
+	save := common.Database.Save(&cart)
+	if save.Error != nil {
 		return command.NewErrorEvent("CartInvalid", nil)
 	}
 
-	res, _ := json.Marshal(req)
+	event := models.EventItemModel{
+		ID:   cart.ID,
+		Item: req.Item,
+	}
+
+	res, _ := json.Marshal(event)
 	return command.NewEvent("ItemAdded", 1, *cart.ID, res)
 }
 
@@ -67,6 +74,11 @@ func OnRemoveItem(command *commander.Command) *commander.Event {
 		return command.NewErrorEvent("CartInvalid", nil)
 	}
 
-	res, _ := json.Marshal(req)
+	event := models.EventItemModel{
+		ID:   cart.ID,
+		Item: req.Item,
+	}
+
+	res, _ := json.Marshal(event)
 	return command.NewEvent("ItemRemoved", 1, *cart.ID, res)
 }

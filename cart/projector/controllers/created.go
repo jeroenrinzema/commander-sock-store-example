@@ -10,10 +10,16 @@ import (
 
 // OnCartCreated creates the card
 func OnCartCreated(event *commander.Event) {
-	cart := models.CartModelView{}
-	err := json.Unmarshal(event.Data, &cart)
+	req := models.EventCreatedModel{}
+	err := json.Unmarshal(event.Data, &req)
 	if err != nil {
 		return
+	}
+
+	cart := models.CartModelView{
+		ID:    req.ID,
+		User:  req.User,
+		Items: req.Items,
 	}
 
 	query := common.Database.Save(&cart)

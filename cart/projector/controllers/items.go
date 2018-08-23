@@ -10,15 +10,16 @@ import (
 
 // OnItemAdded adds a item to a cart
 func OnItemAdded(event *commander.Event) {
-	cart := models.CartModelView{}
-	req := models.ItemCommandModel{}
+	req := models.EventItemModel{}
 	err := json.Unmarshal(event.Data, &req)
 
 	if err != nil {
 		return
 	}
 
-	cart.ID = &event.Key
+	cart := models.CartModelView{
+		ID: &event.Key,
+	}
 
 	query := common.Database.First(&cart)
 	if query.Error != nil {
@@ -31,15 +32,16 @@ func OnItemAdded(event *commander.Event) {
 
 // OnItemRemoved removes a item from a cart
 func OnItemRemoved(event *commander.Event) {
-	cart := models.CartModelView{}
-	req := models.ItemCommandModel{}
+	req := models.EventItemModel{}
 	err := json.Unmarshal(event.Data, &req)
 
 	if err != nil {
 		return
 	}
 
-	cart.ID = &event.Key
+	cart := models.CartModelView{
+		ID: &event.Key,
+	}
 
 	query := common.Database.First(&cart)
 	if query.Error != nil {

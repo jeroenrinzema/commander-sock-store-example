@@ -8,7 +8,9 @@ import (
 
 // OnCartDeclined mark the given cart as declined
 func OnCartDeclined(event *commander.Event) {
-	cart := models.CartModelView{}
-	cart.ID = &event.Key
+	cart := models.CartModelView{
+		ID: &event.Key,
+	}
+
 	common.Database.Delete(&cart)
 }
