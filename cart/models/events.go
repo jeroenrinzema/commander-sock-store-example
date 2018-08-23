@@ -13,8 +13,8 @@ type EventCreatedModel struct {
 	Items []int64    `json:"items"`
 }
 
-// EventPurcaseModel holds the information about a purchase
-type EventPurcaseModel struct {
+// EventPurchaseModel holds the information about a purchase
+type EventPurchaseModel struct {
 	ID   *uuid.UUID `json:"id"`
 	Time time.Time  `json:"time"`
 }
